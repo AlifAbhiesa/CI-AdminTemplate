@@ -14,16 +14,14 @@
 			else{
 				//Compare the password attempt with the password we have stored.
 				$result = $query->row_array();
-			   
-			        return $result = $query->row_array();
+			    return $result = $query->row_array();
 			    
-				
 			}
 		}
 
 		public function change_pwd($data, $id){
-			$this->db->where('id', $id);
-			$this->db->update('ci_users', $data);
+			$this->db->where('id_anggota', $id);
+			$this->db->update('tbl_anggota', $data);
 			return true;
 		}
 

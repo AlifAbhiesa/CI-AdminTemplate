@@ -11,7 +11,7 @@
 		public function index(){
 			if($this->session->has_userdata('is_admin_login'))
 			{
-				redirect('admin/dashboard');
+				redirect('Dashboard');
 			}
 			else{
 				redirect('admin/auth/login');
@@ -25,7 +25,7 @@
 				$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 				if ($this->form_validation->run() == FALSE) {
-					$this->load->view('admin/auth/login');
+					$this->load->view('admin/auth/login2');
 				}
 				else {
 					$data = array(
@@ -44,16 +44,17 @@
 						 	'is_admin_login' => TRUE
 						);
 						$this->session->set_userdata($admin_data);
-						redirect(base_url('admin/Timeline'), 'refresh');
+						redirect(base_url('Dashboard'), 'refresh');
 					}
 					else{
-						$data['msg'] = 'Invalid Email or Password!';
-						$this->load->view('admin/auth/login', $data);
+						
+						echo "<script>alert('user or pass wrong !');</script>";
+                        $this->load->view('admin/auth/login2');
 					}
 				}
 			}
 			else{
-				$this->load->view('admin/auth/login');
+				$this->load->view('admin/auth/login2');
 			}
 		}	
 
@@ -68,7 +69,7 @@
 				}
 				else{
 					$data = array(
-						'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
+						'password_anggota' => md5($this->input->post('password'))
 					);
 					$result = $this->auth_model->change_pwd($data, $id);
 					if($result){
